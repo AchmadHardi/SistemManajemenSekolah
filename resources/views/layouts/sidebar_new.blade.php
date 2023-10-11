@@ -6,7 +6,7 @@
         <div class="sidebar-brand-icon">
             <img src="{{ asset('img/school.jpg') }}" width="60px" alt="">
         </div>
-        <div class="sidebar-brand-text mx-3">School Jakarta</div>
+        <div class="sidebar-brand-text mx-3">School Tangerang</div>
     </a>
 
     <!-- Divider -->
