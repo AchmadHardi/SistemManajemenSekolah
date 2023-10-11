@@ -458,7 +458,7 @@
 
                 <img src="{{ asset('img/kepsek.jpg') }}">
 
-                <h2>Dr. Maria Wijaya</h2>
+                <h2>Dr. Arif Wijaya</h2>
 
                 <p><b>KEPALA SEKOLAH</b></p>
 
@@ -482,7 +482,7 @@
 
                 <img src="{{ asset('img/waka.jpg') }}">
 
-                <h2>Ahmad Syahputra</h2>
+                <h2>Siti Rahayu</h2>
 
                 <p><b>WAKA KESISWAAN</b></p>
 
@@ -494,7 +494,7 @@
 
                 <img src="{{ asset('img/humas.jpg') }}">
 
-                <h2> Siti Rahayu</h2>
+                <h2> Ahmad Syahputra </h2>
 
                 <p><b>WAKA HUMAS</b></p>
 
