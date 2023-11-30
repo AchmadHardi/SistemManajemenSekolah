@@ -17,7 +17,7 @@ return new class extends Migration
       $table->id();
       $table->bigInteger('nis')->unique();
       $table->string('nama', 45);
-      $table->text('gambar');
+      $table->string('gambar')->nullable();
       $table->enum('jk', ['Laki-laki', 'Perempuan'])->nullable();
       $table->string('alamat', 55);
       $table->timestamps();

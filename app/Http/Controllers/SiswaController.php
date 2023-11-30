@@ -2,7 +2,9 @@
 
 namespace App\Http\Controllers;
 
+use App\Exports\ExportSiswa;
 use App\Models\Siswa;
+use Illuminate\Support\Facades\Session;
 use Illuminate\Support\Str;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Storage;
@@ -10,7 +12,9 @@ use Illuminate\Support\Facades\Validator;
 use Illuminate\Validation\Rule;
 use App\Http\Requests\StoreSiswaRequest;
 use App\Http\Requests\UpdateSiswaRequest;
-
+use App\Exports\SiswaExport;
+use App\Imports\SiswaImport;
+use Maatwebsite\Excel\Facades\Excel;
 
 class SiswaController extends Controller
 {
@@ -21,14 +25,15 @@ class SiswaController extends Controller
    */
   public function index()
   {
-
-    $siswa =  Siswa::when(request('search'), function ($query) {
+    $siswa = Siswa::when(request('search'), function ($query) {
       $query->where('nama', 'LIKE', '%' . request('search') . '%')
         ->orWhere('alamat', 'LIKE', '%' . request('search') . '%')
         ->orWhere('nis', 'LIKE', '%' . request('search') . '%');
     })->orderBy('created_at', 'desc')->paginate(8);
+
     return view('siswa.index', ['siswa' => $siswa]);
   }
+
 
   public function trash()
   {
@@ -72,6 +77,7 @@ class SiswaController extends Controller
 
     /*  dd($request->all());
      */
+
 
     Validator::make($request->all(), [
       'nis'    => ['required', Rule::unique('siswa'), 'regex:/^[0-9]+$/'],
@@ -313,6 +319,7 @@ class SiswaController extends Controller
 
 
 
+
   // public function updateImage(Request $request, $id)
   // {
   //   $request->validate([
@@ -380,6 +387,36 @@ class SiswaController extends Controller
   //   //     ]);
   //   // }
   // }
+  //   public function import(Request $request)
+  // {
+  //     // Import statement
+  //     Excel::import(new SiswaImport, $request->file('import_file'));
 
+  //     // Your existing code here...
 
+  //     return redirect()->route('siswa')->with([
+  //         'message' => 'Import berhasil',
+  //         'alert-info' => 'success'
+  //     ]);
+  // }
+
+  public function export_excel()
+  {
+    return Excel::download(new ExportSiswa, 'siswa.xlsx');
+  }
+
+  public function import(Request $request)
+  {
+    $request->validate([
+      'import_file' => 'required|file|mimes:xlsx',
+    ]);
+
+    // Specify the file type as XLSX explicitly
+    Excel::import(new SiswaImport, $request->file('import_file'));
+
+    return redirect()->route('siswa')->with([
+      'message' => 'Import berhasil',
+      'alert-info' => 'success',
+    ]);
+  }
 }

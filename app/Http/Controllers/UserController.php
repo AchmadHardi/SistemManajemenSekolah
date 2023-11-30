@@ -2,9 +2,11 @@
 
 namespace App\Http\Controllers;
 
+use App\Imports\UsersImport;
 use App\Models\User;
 use Illuminate\Http\Request;
 use Spatie\Permission\Models\Role;
+use Maatwebsite\Excel\Facades\Excel;
 
 class UserController extends Controller
 {
@@ -88,5 +90,18 @@ class UserController extends Controller
     User::find($id)->delete();
 
     return redirect()->back();
+  }
+
+  public function importusers()
+  {
+    return view('user.import');
+  }
+
+  public function uploadUsers(Request $request)
+  {
+    Excel::import(new UsersImport, $request->file);
+
+    return redirect()->route('user.index')->with('success', 'User Imported
+    Successfully');
   }
 }

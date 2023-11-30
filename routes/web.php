@@ -11,6 +11,8 @@ use App\Http\Controllers\SiswaController;
 use App\Http\Controllers\JadwalController;
 use App\Http\Controllers\KurikulumController;
 use App\Http\Controllers\PelajaranController;
+use App\Http\Controllers\ExcelController;
+use Maatwebsite\Excel\Facades\Excel;
 
 /*
 |--------------------------------------------------------------------------
@@ -54,7 +56,8 @@ Route::middleware([
       Route::get('{id}/delete', 'destroy')->name('siswa.destroy');
       Route::get('trash', 'trash')->name('siswa.trash');
       Route::put('siswa/restore/{id}', 'restore')->name('siswa.restore');
-
+      Route::get('/siswa/export-excel', [SiswaController::class, 'export_excel'])->name('siswa.export_excel');
+      Route::post('/siswa/importExcel', [SiswaController::class, 'import'])->name('siswa.importExcel');
 
     });
 
@@ -98,11 +101,17 @@ Route::middleware([
         Route::get('{id}/update', 'edit')->name('user.update');
         Route::post('{id}/update', 'update')->name('user.save.update');
         Route::get('{id}/delete', 'destroy')->name('user.destroy');
+        Route::get('/import-users', [UserController::class, 'importusers'])->name('users.import'); // Update this line
       });
     });
 
     Route::controller(PDFController::class)->group(function () {
       Route::get('/pdf/{param}', 'index')->name('pdf');
     });
+    
+    Route::prefix('excel')->group(function () {
+      Route::get('/{param}', [ExcelController::class, 'export'])->name('excel');
+  });
+    
   });
 });

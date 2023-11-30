@@ -12,7 +12,13 @@ class Siswa extends Model
 
   protected $table = 'siswa';
 
-  protected $fillable = ['nis', 'nama', 'jk', 'alamat', 'status_siswa', 'gambar'];
+  protected $fillable = [
+    'nis', 
+    'nama', 
+    'jk', 
+    'alamat', 
+    'status_siswa', 
+    'gambar'];
 	// protected $dates = ['deleted_at'];
   public static function booted()
   {

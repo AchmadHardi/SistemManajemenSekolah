@@ -21,6 +21,7 @@
 
     @role(['Super Admin', 'Admin'])
         <!-- Nav Item - Charts -->
+        
         <li @class(['nav-item',  'active fw-semibold' => Request()->is('siswa*')])>
             <a @class(['nav-link']) href="{{ route('siswa') }}">
                 <i class="fa-solid fa-chalkboard-user"></i>
@@ -56,6 +57,8 @@
                 <i class="fa-solid fa-user"></i>
                 <span>Data User</span></a>
         </li>
+
+        
     @endrole
 </ul>
 <!-- End of Sidebar -->

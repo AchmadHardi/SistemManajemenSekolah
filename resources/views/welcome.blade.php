@@ -337,7 +337,10 @@
                     <a @class(['nav-link']) href="{{ route('register') }}">Register</a>
                 </li>
 
-                <li @class(['nav-item', 'active fw-semibold' => Request()->is('login*')])>
+                <li @class([
+                    'nav-item',
+                    'active fw-semibold' => Request()->is('login*'),
+                ])>
                     <a @class(['nav-link']) href="{{ route('login') }}">Login</a>
                 </li>
 
